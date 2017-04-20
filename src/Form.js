@@ -7,7 +7,7 @@ class Form {
      *
      * @param {object} data
      */
-    constructor(data) {
+    constructor(data, shouldReset = true) {
 
         if (Array.isArray(data)) {
             data = data.reduce((carry, element) => {
@@ -17,6 +17,7 @@ class Form {
         }
 
         this.originalData = data;
+        this.shouldReset = shouldReset;
         this.errors = new Errors();
         this.processing = false;
 
@@ -144,7 +145,9 @@ class Form {
      * @param {object} data
      */
     onSuccess() {
-        this.reset();
+        if (this.shouldReset) {
+            this.reset();
+        }
     }
 
     /**
